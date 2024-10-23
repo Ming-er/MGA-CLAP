@@ -1,0 +1,55 @@
+device: "cuda"
+seed: 20
+embed_size: 1024
+temp: 0.07
+queue_size: 5120
+json_files: ['data/json_files/BBC_Sound_Effects/bbc_final.json', 'data/json_files/FreeSound/fsd_final.json', 'data/json_files/SoundBible/sb_final.json', "data/json_files/AudioSet_SL/as_final.json", "data/json_files/Clotho/clotho_train_final.json", "data/json_files/AudioCaps/audiocaps_train_final.json"]
+resume: false
+blacklist: "data/json_files/blacklist/blacklist_exclude_all_ac.json"
+embed_regularization: true
+
+dist_args:
+  dist_url: "env://"
+
+audio_args:
+  sr: 32000
+  n_fft: 1024
+  hop_length: 320
+  f_min: 50
+  f_max: 14000
+  n_mels: 64
+  max_length: 10
+  mono: True
+
+audio_encoder_args:
+  type: "transformer"
+  model: "htsat"
+  pretrained: True
+  freeze: False
+
+data_args:
+  batch_size: 128
+  num_workers: 12
+
+
+text_encoder_args:
+  type: 'bert-base-uncased'
+  freeze: False
+
+
+optim_args:
+  lr: !!float 5e-5
+  warmup_steps: 0
+  optimizer_name: "adam"
+  betas: [0.9, 0.999]
+  eps: !!float 1e-8
+  momentum: 0.9
+  warmup_epochs: 2
+
+
+training:
+  spec_augmentation: True
+  epochs: 10
+  clip_grad: 2
+  dropout: 0.2
+

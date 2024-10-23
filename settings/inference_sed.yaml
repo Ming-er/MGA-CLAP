@@ -1,0 +1,38 @@
+embed_size: 1024
+temp: 0.07
+embed_regularization: true
+device: "cuda"
+
+audio_args:
+  sr: 32000
+  n_fft: 1024
+  hop_length: 320
+  f_min: 50
+  f_max: 14000
+  n_mels: 64
+  max_length: 10
+  mono: True
+
+
+audio_encoder_args:
+  type: "transformer"
+  model: "htsat"
+  pretrained: False
+  freeze: False
+
+
+text_encoder_args:
+  type: 'bert-base-uncased'
+  freeze: False
+
+
+training:
+  spec_augmentation: True
+  epochs: 20
+  clip_grad: 2
+  dropout: 0.2
+
+eval:
+  # dataset: "urbansed" # choose from desed, urbansed, as-s
+  data_root_dir: DATA_PATH # containing both metadate (tsv file) and audios
+  ckpt: CKPT_PATH # './pretrained_models/models/model.pt'
