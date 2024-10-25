@@ -75,7 +75,7 @@ We show several evaluation examples of fine-grained and coarse-grained tasks
   
   - Hard-negative guided contrastive loss
 
-​	      can be found in <u>tools/losses.py</u>
+    can be found in <u>tools/losses.py</u>
 
 
 
